@@ -80,7 +80,10 @@ $(LIBFT):
 $(MLX_LIB):
 	@mkdir -p $(MLX_BUILD)
 	@cd $(MLX_BUILD) && cmake .. >/dev/null
-	@+cmake --build $(MLX_BUILD) >/dev/null
+	@cmake --build $(MLX_BUILD) >/dev/null
+#outra opção
+#	@cmake -S $(MLX_DIR) -B $(MLX_BUILD)
+#	@cmake --build $(MLX_BUILD)
 
 clean:
 	@rm -rf $(OBJ_DIR)
