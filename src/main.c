@@ -21,7 +21,7 @@ void test(void *param)
 	printf("oi\n");
 }
 
-int	main(void)
+/*int	main(void)
 {
 	mlx_t	*mlx;
 
@@ -36,4 +36,61 @@ int	main(void)
 	mlx_loop(mlx); //faz o loop e executa funções da lista que foram registradas por mlx_loop_hook
 	mlx_terminate(mlx);
 	return (0);
+}*/
+
+/*código a seguir para testar/aprender:
+Abre a janela.
+Cria uma mlx_image_t.
+Adiciona a imagem na janela.
+Desenha um único pixel branco no centro (400, 300).
+Adicional: Desenhar a cruz inteira usando dois loops.*/
+
+int	main(void)
+{
+	mlx_t		*mlx;
+	mlx_image_t *img;
+	uint32_t	x;
+	uint32_t	y;
+
+	mlx = mlx_init(800, 600, "Aprendendo mlx", false);
+	if (!mlx)
+	{
+		printf("ERROR: mlx\n");
+		return (1);
+	}
+	img = mlx_new_image(mlx, 800, 600);
+	if (!img)
+	{
+		printf("ERROR: img\n");
+		mlx_terminate(mlx);
+		return (1);
+	}
+	//desenha só um ponto ao centro da tela
+	mlx_put_pixel(img, 400, 300, 0xFFFFFFFF);
+	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
+	{
+		printf("ERROR: image to windown\n");
+		mlx_delete_image(mlx, img);
+		mlx_terminate(mlx);
+		return (1);
+	}
+	
+	//Desenhando a Cruz
+	x = 350;
+	while (x <= 450)
+	{
+		mlx_put_pixel(img, x, 300, 0xFFFFFFFF);
+		x++;
+	}
+	y = 250;
+	while (y <= 350)
+	{
+		mlx_put_pixel(img, 400, y, 0xFFFFFFFF);
+		y++;
+	}
+	mlx_loop(mlx);
+	mlx_delete_image(mlx, img);
+	mlx_terminate(mlx);
 }
+
+void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color); //tentar desenhar um quadrado
