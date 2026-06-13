@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 17:40:43 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/13 12:02:54 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/13 15:15:02 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ Cria uma mlx_image_t.
 Adiciona a imagem na janela.
 Desenha um único pixel branco no centro (400, 300).
 Adicional: Desenhar a cruz inteira usando dois loops.
-Adicional: */
+Adicional: Desenha quadrado
+Adicional: Desenha baseado no mapa*/
+
 
 void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color)
 {
@@ -66,12 +68,46 @@ void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color)
 	}
 }
 
+void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
+{
+	char *map[] =
+	{
+		"11111",
+		"10001",
+		"10101",
+		"10001",
+		"11111",
+		NULL
+	};
+	int col;
+	int	lin;
+	int	x2;
+	int	y2;
+
+	lin = 0;
+	while (map[lin])
+	{
+		col = 0;
+		while (map[lin][col])
+		{
+			x2 = x + (col * size);
+			y2 = y + (lin * size);
+			if(map[col][lin] == '1')
+				draw_square(img, x2, y2, size, color);
+			else if (map[col][lin] == '0')
+				draw_square(img, x2, y2, size, 0xFF000000);
+			col++;
+		}
+		lin++;
+	}
+}
+
 int	main(void)
 {
 	mlx_t		*mlx;
 	mlx_image_t *img;
-	uint32_t	x;
-	uint32_t	y;
+	// uint32_t	x;
+	// uint32_t	y;
 
 	mlx = mlx_init(800, 600, "Aprendendo mlx", false);
 	if (!mlx)
@@ -86,8 +122,6 @@ int	main(void)
 		mlx_terminate(mlx);
 		return (1);
 	}
-	//desenha só um ponto ao centro da tela
-	mlx_put_pixel(img, 400, 300, 0xFFFFFFFF);
 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
 	{
 		printf("ERROR: image to windown\n");
@@ -96,22 +130,28 @@ int	main(void)
 		return (1);
 	}
 	
+	//desenha só um ponto ao centro da tela
+	// mlx_put_pixel(img, 400, 300, 0xFFFFFFFF);
+	
 	//Desenhando a Cruz
-	x = 350;
-	while (x <= 450)
-	{
-		mlx_put_pixel(img, x, 300, 0xFFFFFFFF);
-		x++;
-	}
-	y = 250;
-	while (y <= 350)
-	{
-		mlx_put_pixel(img, 400, y, 0xFFFFFFFF);
-		y++;
-	}
+	// x = 350;
+	// while (x <= 450)
+	// {
+	// 	mlx_put_pixel(img, x, 300, 0xFFFFFFFF);
+	// 	x++;
+	// }
+	// y = 250;
+	// while (y <= 350)
+	// {
+	// 	mlx_put_pixel(img, 400, y, 0xFFFFFFFF);
+	// 	y++;
+	// }
 
 	//desenha quadrado
 	draw_square(img, 350, 250, 100, 0xFFFFFFFF);
+
+	//desenha baseado no mapa
+	// draw_map(img, 100, 100, 16, 0xFFFFFFFF);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, img);
 	mlx_terminate(mlx);
