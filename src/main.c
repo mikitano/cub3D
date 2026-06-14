@@ -103,21 +103,21 @@ void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
 	}
 }
 
-t_test fill_test(mlx_t *mlx, mlx_image_t *img, int x, int y)
-{
-	t_test	test;
+// t_test fill_test(mlx_t *mlx, mlx_image_t *img, int x, int y)
+// {
+// 	t_test	test;
 
-	if (!mlx || !img)
-		return (NULL);
-	test = malloc(sizeof(t_test));
-	if (!test)
-		return (NULL);
-	test.mlx = mlx;
-	test.img = img;
-	test.x = x;
-	test.y = y;
-	return (test);
-}
+// 	if (!mlx || !img)
+// 		return (NULL);
+// 	test = malloc(sizeof(t_test));
+// 	if (!test)
+// 		return (NULL);
+// 	test.mlx = mlx;
+// 	test.img = img;
+// 	test.x = x;
+// 	test.y = y;
+// 	return (test);
+// }
 
 void	game_loop(void *param)
 {
@@ -126,13 +126,17 @@ void	game_loop(void *param)
 	test = (t_test *)param;
 
 	if (mlx_is_key_down(test->mlx, MLX_KEY_W))
-		printf("W\n");
+		test->y -= 5;
+		// printf("W\n");
 	if (mlx_is_key_down(test->mlx, MLX_KEY_A))
-		printf("A\n");
+		test->x -= 5;
+		// printf("A\n");
 	if (mlx_is_key_down(test->mlx, MLX_KEY_S))
-		printf("S\n");
+		test->y += 5;
+		// printf("S\n");
 	if (mlx_is_key_down(test->mlx, MLX_KEY_D))
-		printf("D\n");
+		test->x += 5;
+		// printf("D\n");
 }
 
 int	main(void)
