@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "MLX42/MLX42.h"
-#include "stdio.h" 
+#include "stdio.h"
+#include "test.h"
 
 //testando como funciona a mlx42
 
@@ -74,7 +75,7 @@ void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
 	{
 		"11111",
 		"10001",
-		"10101",
+		"10001",
 		"10001",
 		"11111",
 		NULL
@@ -102,10 +103,43 @@ void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
 	}
 }
 
+t_test fill_test(mlx_t *mlx, mlx_image_t *img, int x, int y)
+{
+	t_test	test;
+
+	if (!mlx || !img)
+		return (NULL);
+	test = malloc(sizeof(t_test));
+	if (!test)
+		return (NULL);
+	test.mlx = mlx;
+	test.img = img;
+	test.x = x;
+	test.y = y;
+	return (test);
+}
+
+void	game_loop(void *param)
+{
+	t_test *test;
+
+	test = (t_test *)param;
+
+	if (mlx_is_key_down(test->mlx, MLX_KEY_W))
+		printf("W\n");
+	if (mlx_is_key_down(test->mlx, MLX_KEY_A))
+		printf("A\n");
+	if (mlx_is_key_down(test->mlx, MLX_KEY_S))
+		printf("S\n");
+	if (mlx_is_key_down(test->mlx, MLX_KEY_D))
+		printf("D\n");
+}
+
 int	main(void)
 {
 	mlx_t		*mlx;
 	mlx_image_t *img;
+	t_test		test;
 	// uint32_t	x;
 	// uint32_t	y;
 
@@ -130,6 +164,11 @@ int	main(void)
 		return (1);
 	}
 	
+	test.mlx = mlx;
+	test.img = img;
+	test.x = 350;
+	test.y = 250;
+
 	//desenha só um ponto ao centro da tela
 	// mlx_put_pixel(img, 400, 300, 0xFFFFFFFF);
 	
@@ -148,10 +187,12 @@ int	main(void)
 	// }
 
 	//desenha quadrado
-	draw_square(img, 350, 250, 100, 0xFFFFFFFF);
+	draw_square(test.img, test.x, test.y, 100, 0xFFFFFFFF);
 
 	//desenha baseado no mapa
 	// draw_map(img, 100, 100, 16, 0xFFFFFFFF);
+
+	mlx_loop_hook(mlx, game_loop, &test);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, img);
 	mlx_terminate(mlx);
