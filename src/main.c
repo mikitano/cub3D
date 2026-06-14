@@ -3,156 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:40:43 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/13 15:15:02 by mkitano          ###   ########.fr       */
+/*   Created: 2026/06/03 10:55:09 by namatias          #+#    #+#             */
+/*   Updated: 2026/06/14 00:36:20 by namatias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/MLX42.h"
-#include "stdio.h" 
+#include "parser.h"
 
-//testando como funciona a mlx42
-
-void test(void *param)
+int	main(int argc, char **argv)
 {
-	(void)param;
-	printf("oi\n");
-}
+	t_parser	parser;
+	t_file		file;
+	t_texture	texture;
 
-/*int	main(void)
-{
-	mlx_t	*mlx;
-
-	//mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
-	mlx = mlx_init(800, 600, "cub3d", true); //testar com false, assim ele não da resize
-	if (!mlx)
-	return (1);
-
-	mlx_loop_hook(mlx, test, NULL); //"registra" as funções de 'ação', ou no caso funções que rodam nos frames
-	
-	//void mlx_loop(mlx_t* mlx)
-	mlx_loop(mlx); //faz o loop e executa funções da lista que foram registradas por mlx_loop_hook
-	mlx_terminate(mlx);
+	init_structs(&parser, &file, &texture);
+	if (!check_args(argc, argv, &parser) || !read_file(argv[1], &parser))
+	{
+		print_error(parser.status);
+		clean_all(&parser);
+		return (1);
+	}
+	//--> Resto do progreama aqui !! <--
+	clean_all(&parser);
 	return (0);
-}*/
-
-/*código a seguir para testar/aprender:
-Abre a janela.
-Cria uma mlx_image_t.
-Adiciona a imagem na janela.
-Desenha um único pixel branco no centro (400, 300).
-Adicional: Desenhar a cruz inteira usando dois loops.
-Adicional: Desenha quadrado
-Adicional: Desenha baseado no mapa*/
-
-
-void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color)
-{
-	int	x2;
-	int	y2;
-
-	x2 = x;
-	y2 = y;
-
-	while (y2 < y + size)
-	{
-		while (x2 < x + size)
-		{
-			mlx_put_pixel(img, x2, y2, color);
-			x2++;
-		}
-		x2 = x;
-		y2++;
-	}
 }
 
-void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
-{
-	char *map[] =
-	{
-		"11111",
-		"10001",
-		"10101",
-		"10001",
-		"11111",
-		NULL
-	};
-	int col;
-	int	lin;
-	int	x2;
-	int	y2;
-
-	lin = 0;
-	while (map[lin])
-	{
-		col = 0;
-		while (map[lin][col])
-		{
-			x2 = x + (col * size);
-			y2 = y + (lin * size);
-			if(map[col][lin] == '1')
-				draw_square(img, x2, y2, size, color);
-			else if (map[col][lin] == '0')
-				draw_square(img, x2, y2, size, 0xFF000000);
-			col++;
-		}
-		lin++;
-	}
-}
-
-int	main(void)
-{
-	mlx_t		*mlx;
-	mlx_image_t *img;
-	// uint32_t	x;
-	// uint32_t	y;
-
-	mlx = mlx_init(800, 600, "Aprendendo mlx", false);
-	if (!mlx)
-	{
-		printf("ERROR: mlx\n");
-		return (1);
-	}
-	img = mlx_new_image(mlx, 800, 600);
-	if (!img)
-	{
-		printf("ERROR: img\n");
-		mlx_terminate(mlx);
-		return (1);
-	}
-	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
-	{
-		printf("ERROR: image to windown\n");
-		mlx_delete_image(mlx, img);
-		mlx_terminate(mlx);
-		return (1);
-	}
-	
-	//desenha só um ponto ao centro da tela
-	// mlx_put_pixel(img, 400, 300, 0xFFFFFFFF);
-	
-	//Desenhando a Cruz
-	// x = 350;
-	// while (x <= 450)
+	// /* ************************************************************************** */
+	// /* 									Prints para Debugg                       */
+	// /* ************************************************************************** */
+	//int	i;
+	// printf("Tudo certo!\nRoda a bagaceira!!!\n\n");
+	// printf("Status: %d\n", parser.status);
+	// printf("Color_ceiling: %d\n", parser.file->color_ceiling);
+	// printf("Color_floor: %d\n", parser.file->color_floor);
+	// printf("Player_row: %d\n", parser.file->player_row);
+	// printf("Player_col: %d\n", parser.file->player_col);
+	// printf("Total_row: %d\n", parser.file->total_row);
+	// printf("Total_col: %d\n", parser.file->total_col);
+	// printf("Texture NO: |%s|\n", parser.file->texture->no);
+	// printf("Texture SO: |%s|\n", parser.file->texture->so);
+	// printf("Texture WE: |%s|\n", parser.file->texture->we);
+	// printf("Texture EA: |%s|\n", parser.file->texture->ea);
+	// printf("Player View: %c\n", parser.file->player_view);
+	// printf("\n Imprimindo o mapa FINAL! \n");
+	// i = 0;
+	// while (i < parser.file->total_row)
 	// {
-	// 	mlx_put_pixel(img, x, 300, 0xFFFFFFFF);
-	// 	x++;
+	// 	printf("Linha %d - %s\n", i, parser.file->map[i]);
+	// 	i++;
 	// }
-	// y = 250;
-	// while (y <= 350)
-	// {
-	// 	mlx_put_pixel(img, 400, y, 0xFFFFFFFF);
-	// 	y++;
-	// }
-
-	//desenha quadrado
-	draw_square(img, 350, 250, 100, 0xFFFFFFFF);
-
-	//desenha baseado no mapa
-	// draw_map(img, 100, 100, 16, 0xFFFFFFFF);
-	mlx_loop(mlx);
-	mlx_delete_image(mlx, img);
-	mlx_terminate(mlx);
-}

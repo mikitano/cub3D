@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+         #
+#    By: namatias <namatias@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/04 17:29:36 by mkitano           #+#    #+#              #
-#    Updated: 2026/06/04 17:58:27 by mkitano          ###   ########.fr        #
+#    Updated: 2026/06/14 00:38:00 by namatias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,26 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR =		./src/
+PARSE_DIR = 	parser/
 OBJ_DIR =		./obj/
-INCLUDE_DIR =	./include/
+INCLUDE_DIR =	./Include/
 LIB_DIR =		./lib/libftx/
 MLX_DIR =		./lib/mlx42/
 MLX_BUILD =		$(MLX_DIR)/build/
 
+PARSE_FILES =	clean_free.c \
+				parser_map.c \
+				parser_args.c \
+				parser_file.c \
+				parser_utils.c \
+				parser_color.c \
+				parser_texture.c \
+				parser_map_utils.c \
+				parser_error_msg.c 
+
 SRC_FILES = main.c \
-# 			$(addprefix $(AST_DIR), $(AST_FILES)) \
-#             $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
+			$(addprefix $(PARSE_DIR), $(PARSE_FILES)) \
+#           $(addprefix $(EXEC_DIR), $(EXEC_FILES)) \
 # 			$(addprefix $(TOKEN_DIR), $(TOKEN_FILES)) \
 # 			$(addprefix $(SYNTAX_DIR), $(SYNTAX_FILES)) \
 
@@ -36,6 +47,9 @@ FILES_O = $(SRC_FILES:.c=.o)
 
 OBJS = $(addprefix $(OBJ_DIR), $(FILES_O))
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
+#Para rodar precisa obrigatoriamente de um mapa, entao criar o args permite rodar o make val
+# para testar o make val com outro mapa substituir o caminho pelo caminho do novo mapa
+ARGS = ./maps/basic_map.cub
 
 ################################################################################
 #                   	          LIBRARIES        		                       #
@@ -80,10 +94,7 @@ $(LIBFT):
 $(MLX_LIB):
 	@mkdir -p $(MLX_BUILD)
 	@cd $(MLX_BUILD) && cmake .. >/dev/null
-	@cmake --build $(MLX_BUILD) >/dev/null
-#outra opção
-#	@cmake -S $(MLX_DIR) -B $(MLX_BUILD)
-#	@cmake --build $(MLX_BUILD)
+	@+cmake --build $(MLX_BUILD) >/dev/null
 
 clean:
 	@rm -rf $(OBJ_DIR)
@@ -99,6 +110,7 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind -q --suppressions=mlx.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME)
+	valgrind -q --suppressions=mlx.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
 
 .PHONY: all clean fclean re val
+
