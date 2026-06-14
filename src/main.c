@@ -119,6 +119,23 @@ void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
 // 	return (test);
 // }
 
+void	clear_image(mlx_image_t *img)
+{
+	uint32_t	x;
+	uint32_t	y;
+
+	y = 0;
+	while (y < img->height)
+	{
+		x = 0;
+		while (x < img->width)
+		{
+			mlx_put_pixel(img, x, y, 0x000000FF);
+			x++;
+		}
+		y++;
+	}
+}
 void	game_loop(void *param)
 {
 	t_test *test;
@@ -137,6 +154,8 @@ void	game_loop(void *param)
 	if (mlx_is_key_down(test->mlx, MLX_KEY_D))
 		test->x += 5;
 		// printf("D\n");
+		clear_image(test->img);
+	draw_square(test->img, test->x, test->y, 100, 0xFFFFFFFF);	
 }
 
 int	main(void)
