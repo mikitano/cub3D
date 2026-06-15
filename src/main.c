@@ -154,7 +154,7 @@ void	game_loop(void *param)
 	if (mlx_is_key_down(test->mlx, MLX_KEY_D))
 		test->x += 5;
 		// printf("D\n");
-		clear_image(test->img);
+	clear_image(test->img);
 	draw_square(test->img, test->x, test->y, 100, 0xFFFFFFFF);	
 }
 
