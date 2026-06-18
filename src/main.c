@@ -3,53 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:40:43 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/13 15:15:02 by mkitano          ###   ########.fr       */
+/*   Created: 2026/06/18 19:06:28 by mkitano           #+#    #+#             */
+/*   Updated: 2026/06/18 19:06:28 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/MLX42.h"
-#include "stdio.h"
-#include "test.h"
+#include "cube.h"
 
-//testando como funciona a mlx42
-
-void test(void *param)
-{
-	(void)param;
-	printf("oi\n");
-}
-
-/*int	main(void)
-{
-	mlx_t	*mlx;
-
-	//mlx_t* mlx_init(int32_t width, int32_t height, const char* title, bool resize)
-	mlx = mlx_init(800, 600, "cub3d", true); //testar com false, assim ele não da resize
-	if (!mlx)
-	return (1);
-
-	mlx_loop_hook(mlx, test, NULL); //"registra" as funções de 'ação', ou no caso funções que rodam nos frames
-	
-	//void mlx_loop(mlx_t* mlx)
-	mlx_loop(mlx); //faz o loop e executa funções da lista que foram registradas por mlx_loop_hook
-	mlx_terminate(mlx);
-	return (0);
-}*/
-
-/*código a seguir para testar/aprender:
-Abre a janela.
-Cria uma mlx_image_t.
-Adiciona a imagem na janela.
-Desenha um único pixel branco no centro (400, 300).
-Adicional: Desenhar a cruz inteira usando dois loops.
-Adicional: Desenha quadrado
-Adicional: Desenha baseado no mapa*/
-
-
-void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color)
+void	draw_square(t_game *game,int x, int y, uint32_t color)
 {
 	int	x2;
 	int	y2;
@@ -57,11 +20,11 @@ void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color)
 	x2 = x;
 	y2 = y;
 
-	while (y2 < y + size)
+	while (y2 < y + 16) //16 é um size tmp, pq 16? ou 16 ou 32 ou 64
 	{
-		while (x2 < x + size)
+		while (x2 < x + 16)
 		{
-			mlx_put_pixel(img, x2, y2, color);
+			mlx_put_pixel(game->img, x2, y2, color);
 			x2++;
 		}
 		x2 = x;
@@ -69,55 +32,37 @@ void	draw_square( mlx_image_t *img, int x, int y, int size, uint32_t color)
 	}
 }
 
-void	draw_map( mlx_image_t *img, int x, int y, int size, uint32_t color)
+void	draw_player(t_game *game)
 {
-	char *map[] =
-	{
-		"11111",
-		"10001",
-		"10001",
-		"10001",
-		"11111",
-		NULL
-	};
+	draw_square(game, game->player.pos.x, game->player.pos.y,0x00B6D0E2);
+}
+
+void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
+{
 	int col;
 	int	lin;
 	int	x2;
 	int	y2;
 
 	lin = 0;
-	while (map[lin])
+	while (game->map.grid[lin])
 	{
 		col = 0;
-		while (map[lin][col])
+		while (game->map.grid[lin][col])
 		{
 			x2 = x + (col * size);
 			y2 = y + (lin * size);
-			if(map[col][lin] == '1')
-				draw_square(img, x2, y2, size, color);
-			else if (map[col][lin] == '0')
-				draw_square(img, x2, y2, size, 0xFF000000);
+			if(game->map.grid[lin][col] == '1')
+				draw_square(game, x2, y2, color);
+			else if (game->map.grid[lin][col] == '0')
+				draw_square(game, x2, y2, 0xFF000000);
 			col++;
 		}
 		lin++;
 	}
+	draw_player(game);
+
 }
-
-// t_test fill_test(mlx_t *mlx, mlx_image_t *img, int x, int y)
-// {
-// 	t_test	test;
-
-// 	if (!mlx || !img)
-// 		return (NULL);
-// 	test = malloc(sizeof(t_test));
-// 	if (!test)
-// 		return (NULL);
-// 	test.mlx = mlx;
-// 	test.img = img;
-// 	test.x = x;
-// 	test.y = y;
-// 	return (test);
-// }
 
 void	clear_image(mlx_image_t *img)
 {
@@ -138,85 +83,88 @@ void	clear_image(mlx_image_t *img)
 }
 void	game_loop(void *param)
 {
-	t_test *test;
+	t_game *game;
 
-	test = (t_test *)param;
+	game = (t_game *)param;
 
-	if (mlx_is_key_down(test->mlx, MLX_KEY_W))
-		test->y -= 5;
-		// printf("W\n");
-	if (mlx_is_key_down(test->mlx, MLX_KEY_A))
-		test->x -= 5;
-		// printf("A\n");
-	if (mlx_is_key_down(test->mlx, MLX_KEY_S))
-		test->y += 5;
-		// printf("S\n");
-	if (mlx_is_key_down(test->mlx, MLX_KEY_D))
-		test->x += 5;
-		// printf("D\n");
-	clear_image(test->img);
-	draw_square(test->img, test->x, test->y, 100, 0xFFFFFFFF);	
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		game->player.pos.y -= 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		game->player.pos.x -= 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		game->player.pos.y += 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		game->player.pos.x += 5;
+	clear_image(game->img);
+	draw_map(game, 0, 0, 16, 0xFFFFFFFF);
 }
-
-int	main(void)
+int	main(int argc, char **argv)
 {
-	mlx_t		*mlx;
-	mlx_image_t *img;
-	t_test		test;
-	// uint32_t	x;
-	// uint32_t	y;
+	t_parser	parser;
+	t_file		file;
+	t_texture	texture;
+	t_game		game;
 
-	mlx = mlx_init(800, 600, "Aprendendo mlx", false);
-	if (!mlx)
+	init_structs(&parser, &file, &texture);
+	if (!check_args(argc, argv, &parser) || !read_file(argv[1], &parser))
 	{
-		printf("ERROR: mlx\n");
+		print_error(parser.status);
+		clean_all(&parser);
 		return (1);
 	}
-	img = mlx_new_image(mlx, 800, 600);
-	if (!img)
+	//--> Resto do progreama aqui !! <--
+	if(init_game(&game, &file) > 0)
 	{
-		printf("ERROR: img\n");
-		mlx_terminate(mlx);
+		/*tmp depois tem que arrumar*/
+		mlx_delete_image(game.mlx, game.img);
+		mlx_terminate(game.mlx);
+		clean_all(&parser);
 		return (1);
 	}
-	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
-	{
-		printf("ERROR: image to windown\n");
-		mlx_delete_image(mlx, img);
-		mlx_terminate(mlx);
-		return (1);
-	}
+	draw_map(&game, 0, 0, 16, 0xFFFFFFFF);
+	mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_loop(game.mlx);
+	mlx_delete_image(game.mlx, game.img);
+	mlx_terminate(game.mlx);
 	
-	test.mlx = mlx;
-	test.img = img;
-	test.x = 350;
-	test.y = 250;
-
-	//desenha só um ponto ao centro da tela
-	// mlx_put_pixel(img, 400, 300, 0xFFFFFFFF);
-	
-	//Desenhando a Cruz
-	// x = 350;
-	// while (x <= 450)
-	// {
-	// 	mlx_put_pixel(img, x, 300, 0xFFFFFFFF);
-	// 	x++;
-	// }
-	// y = 250;
-	// while (y <= 350)
-	// {
-	// 	mlx_put_pixel(img, 400, y, 0xFFFFFFFF);
-	// 	y++;
-	// }
-
-	//desenha quadrado
-	draw_square(test.img, test.x, test.y, 100, 0xFFFFFFFF);
-
-	//desenha baseado no mapa
-	// draw_map(img, 100, 100, 16, 0xFFFFFFFF);
-
-	mlx_loop_hook(mlx, game_loop, &test);
-	mlx_loop(mlx);
-	mlx_delete_image(mlx, img);
-	mlx_terminate(mlx);
+	clean_all(&parser);
+	return (0);
 }
+
+// int	main(void)
+// {
+// 	t_game	game;
+
+// 	if (init_game)
+// 	mlx = mlx_init(800, 600, "Aprendendo mlx", false);
+// 	if (!mlx)
+// 	{
+// 		printf("ERROR: mlx\n");
+// 		return (1);
+// 	}
+// 	img = mlx_new_image(mlx, 800, 600);
+// 	if (!img)
+// 	{
+// 		printf("ERROR: img\n");
+// 		mlx_terminate(mlx);
+// 		return (1);
+// 	}
+// 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
+// 	{
+// 		printf("ERROR: image to windown\n");
+// 		mlx_delete_image(mlx, img);
+// 		mlx_terminate(mlx);
+// 		return (1);
+// 	}
+
+// 	//desenha quadrado
+// 	// draw_square(game.img, game.x, game.y, 100, 0xFFFFFFFF);
+
+// 	//desenha baseado no mapa
+// 	draw_map(game, 0, 0, 16, 0xFFFFFFFF);
+
+// 	mlx_loop_hook(game.mlx, game_loop, &game);
+// 	mlx_loop(game.mlx);
+// 	mlx_delete_image(mlx, img);
+// 	mlx_terminate(mlx);
+// }

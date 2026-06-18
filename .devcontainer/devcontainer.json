@@ -1,0 +1,45 @@
+{
+	"name": "C/CPP Dev Environment (CPU/Onboard)",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"mounts": [
+		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+		"source=/mnt/wslg,target=/mnt/wslg,type=bind,consistency=cached"
+	],
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+		"LIBGL_ALWAYS_SOFTWARE": "1"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"ms-vscode.cpp-devtools",
+				"twxs.cmake",
+				"ms-vscode.cmake-tools",
+				"vadimcn.vscode-lldb",
+				"ms-vscode.makefile-tools",
+				"kube.42header",
+				"dokca.42-ft-count-line",
+				"naumovs.color-highlight",
+				"evilcat.norminette-42",
+				"ms-vscode.makefile-tools"
+			],
+			"settings": {
+				"chat.disableAIFeatures": true,
+				"42header.username": "${localEnv:USER_42}",
+				"42header.email": "${localEnv:MAIL_42}"
+			}
+		}
+	},
+	"remoteUser": "vscode",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:1": {
+			"upgradePackages": false,
+			"configureZshAsDefaultShell": true
+		}
+	}
+}
