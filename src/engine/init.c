@@ -6,34 +6,37 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 02:24:31 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/19 04:11:40 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/19 18:22:40 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static void set_player_dir(t_player *player)
+static void set_player_dir(t_game *game)
 {
-	if (player->orientation == 'N')
+	if (game->player.orientation == 'N')
 	{
-		player->dir.x = 0;
-		player->dir.y = -1;
+		game->player.dir.x = 0;
+		game->player.dir.y = -1;
 	}	
-	else if (player->orientation == 'S')
+	else if (game->player.orientation == 'S')
 	{
-		player->dir.x = 0;
-		player->dir.y = 1;
+		game->player.dir.x = 0;
+		game->player.dir.y = 1;
 	}
-	else if (player->orientation == 'E')
+	else if (game->player.orientation == 'E')
 	{
-		player->dir.x = 1;
-		player->dir.y = 0;
+		game->player.dir.x = 1;
+		game->player.dir.y = 0;
 	}
-	else if (player->orientation == 'W')
+	else if (game->player.orientation == 'W')
 	{
-		player->dir.x = -1;
-		player->dir.y = 0;
+		game->player.dir.x = -1;
+		game->player.dir.y = 0;
 	}
+	/*plane é perpendicuar a dri, então sempre vai parecer um T*/
+	game->player.plane.x = -game->player.dir.y * 0.66;
+	game->player.plane.y = game->player.dir.x * 0.66;
 }
 
 /*se der errado tem ver onde dar o free ainda, talvez na main(?)*/
@@ -47,7 +50,7 @@ int	init_game(t_game *game, t_file *file)
 	game->player.pos.x = file->player_col + 0.5;
 	game->player.pos.y = file->player_row + 0.5;
 	game->player.orientation = file->player_view;
-	set_player_dir(&game->player);
+	set_player_dir(game);
 
 	/* colocar as texturas no/so/we/ea depois 
 		tbm falta o char player_view*/

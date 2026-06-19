@@ -45,7 +45,7 @@ typedef struct s_player
 {
 	t_vec	pos;
 	t_vec	dir;
-	//t_vec	plane; (DEPOIS)
+	t_vec	plane;
 	char	orientation;
 }	t_player;
 
@@ -70,5 +70,7 @@ int	init_game(t_game *game, t_file *file);
 int init_win(t_game *game);
 
 void key_move(t_game *game);
+
+void handle_rotate(t_game *game);
 
 #endif

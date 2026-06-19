@@ -57,6 +57,29 @@ void	draw_player_dir(t_game *game)
 		i++;
 	}
 }
+/* ATENÇÃO: função teste. DELETAR depois, não usa no cub3d*/
+void	draw_player_plane(t_game *game)
+{
+	int		i;
+	double	x;
+	double	y;
+
+	i = -5;
+	while (i <= 5)
+	{
+		x = (game->player.pos.x * TILE_SIZE)
+			+ (game->player.plane.x * i * TILE_SIZE);
+
+		y = (game->player.pos.y * TILE_SIZE)
+			+ (game->player.plane.y * i * TILE_SIZE);
+
+		mlx_put_pixel(game->img,
+			(int)x,
+			(int)y,
+			0x00FF00FF);
+		i++;
+	}
+}
 
 void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
 {
@@ -83,6 +106,7 @@ void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
 	}
 	draw_player(game);
 	draw_player_dir(game); //DELETAR DEPOIS. APENAS TEST
+	draw_player_plane(game); //DELETAR DEPOIS. APENAS TEST
 }
 
 void	clear_image(mlx_image_t *img)
@@ -110,8 +134,11 @@ void	game_loop(void *param)
 	game = (t_game *)param;
 
 	key_move(game);
+	handle_rotate(game);
 	clear_image(game->img);
 	draw_map(game, 0, 0, 16, 0xFFFFFFFF);
+	printf("dir_x=%f dir_y=%f\n",game->player.dir.x,
+	game->player.dir.y); //APENAS para teste
 }
 
 int	main(int argc, char **argv)

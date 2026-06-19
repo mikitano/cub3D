@@ -42,6 +42,7 @@ PARSE_FILES =	clean_free.c \
 ENGINE_FILES =	init.c \
 
 INPUTS_FILES =	player_move.c \
+				rotate.c \
 
 SRC_FILES = main.c \
 			$(addprefix $(PARSER_DIR), $(PARSE_FILES)) \
