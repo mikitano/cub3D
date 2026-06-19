@@ -20,7 +20,7 @@ void	draw_square(t_game *game,int x, int y, uint32_t color)
 	x2 = x;
 	y2 = y;
 
-	while (y2 < y + 16) //16 é um size tmp, pq 16? ou 16 ou 32 ou 64
+	while (y2 < y + TILE_SIZE)
 	{
 		while (x2 < x + 16)
 		{
@@ -34,7 +34,28 @@ void	draw_square(t_game *game,int x, int y, uint32_t color)
 
 void	draw_player(t_game *game)
 {
-	draw_square(game, game->player.pos.x, game->player.pos.y,0x00B6D0E2);
+	draw_square(game, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE, 0x00B6D0E2);
+}
+/*função teste. DELETAR depois, não usa no cub3d*/
+void	draw_player_dir(t_game *game)
+{
+	int		i;
+	double	x;
+	double	y;
+
+	i = 0;
+	while (i < 20)
+	{
+		x = (game->player.pos.x * 16)
+			+ (game->player.dir.x * i);
+		y = (game->player.pos.y * 16)
+			+ (game->player.dir.y * i);
+		mlx_put_pixel(game->img,
+			(int)x,
+			(int)y,
+			0xFF0000FF);
+		i++;
+	}
 }
 
 void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
@@ -54,14 +75,14 @@ void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
 			y2 = y + (lin * size);
 			if(game->map.grid[lin][col] == '1')
 				draw_square(game, x2, y2, color);
-			else if (game->map.grid[lin][col] == '0')
+			else if (game->map.grid[lin][col] == '0' || game->map.grid[lin][col] == 'N')
 				draw_square(game, x2, y2, 0xFF000000);
 			col++;
 		}
 		lin++;
 	}
 	draw_player(game);
-
+	draw_player_dir(game); //DELETAR DEPOIS. APENAS TEST
 }
 
 void	clear_image(mlx_image_t *img)
@@ -81,23 +102,18 @@ void	clear_image(mlx_image_t *img)
 		y++;
 	}
 }
+
 void	game_loop(void *param)
 {
 	t_game *game;
 
 	game = (t_game *)param;
 
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		game->player.pos.y -= 5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		game->player.pos.x -= 5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		game->player.pos.y += 5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		game->player.pos.x += 5;
+	key_move(game);
 	clear_image(game->img);
 	draw_map(game, 0, 0, 16, 0xFFFFFFFF);
 }
+
 int	main(int argc, char **argv)
 {
 	t_parser	parser;
@@ -113,7 +129,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	//--> Resto do progreama aqui !! <--
-	if(init_game(&game, &file) > 0)
+	if(init_game(&game, &file) > 0 || init_win(&game)> 0)
 	{
 		/*tmp depois tem que arrumar*/
 		mlx_delete_image(game.mlx, game.img);
@@ -121,7 +137,9 @@ int	main(int argc, char **argv)
 		clean_all(&parser);
 		return (1);
 	}
-	draw_map(&game, 0, 0, 16, 0xFFFFFFFF);
+	printf("Player x: %f", game.player.pos.x);
+	printf("Player y: %f", game.player.pos.y);
+	draw_map(&game, 0, 0, TILE_SIZE, 0xFFFFFFFF);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	mlx_delete_image(game.mlx, game.img);

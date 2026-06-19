@@ -1,0 +1,6 @@
+obj/core/ft_memcpy.o: src/core/ft_memcpy.c include/libft.h \
+ include/ft_printf.h include/linked_list.h include/libft.h
+include/libft.h:
+include/ft_printf.h:
+include/linked_list.h:
+include/libft.h:

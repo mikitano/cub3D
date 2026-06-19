@@ -10,6 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// 111111
+// 100101
+// 101001
+// 1100N1
+// 111111
+
 #ifndef CUBE_H
 #define CUBE_H
 
@@ -25,6 +31,9 @@
 
 # define W_WIDTH 1200
 # define W_HEIGHT 800
+# define TILE_SIZE 16
+
+# define PLAYER_RADIUS 0.2
 
 typedef struct s_vec
 {
@@ -37,6 +46,7 @@ typedef struct s_player
 	t_vec	pos;
 	t_vec	dir;
 	//t_vec	plane; (DEPOIS)
+	char	orientation;
 }	t_player;
 
 typedef struct s_map
@@ -57,5 +67,8 @@ typedef struct s_game
 }	t_game;
 
 int	init_game(t_game *game, t_file *file);
+int init_win(t_game *game);
+
+void key_move(t_game *game);
 
 #endif
