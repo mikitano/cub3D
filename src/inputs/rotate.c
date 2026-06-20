@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:42:58 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/19 18:14:45 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/20 16:51:41 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static void rotate(t_player *player, double speed)
+static void rotate_player(t_player *player, double speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -25,10 +25,11 @@ static void rotate(t_player *player, double speed)
 	player->plane.x = player->plane.x * cos(speed) - player->plane.y * sin(speed);
 	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
 }
+
 void handle_rotate(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		rotate(&game->player, -game->mlx->delta_time * 3.0);
+		rotate_player(&game->player, -game->mlx->delta_time * 3.0);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		rotate(&game->player, game->mlx->delta_time * 3.0);
+		rotate_player(&game->player, game->mlx->delta_time * 3.0);
 }
