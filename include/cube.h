@@ -41,6 +41,12 @@ typedef struct s_vec
 	double	y;
 }	t_vec;
 
+typedef struct s_ivec
+{
+	double	x;
+	double	y;
+}	t_ivec;
+
 typedef struct s_player
 {
 	t_vec	pos;
@@ -56,6 +62,13 @@ typedef struct s_map
 	int		cols;
 }	t_map;
 
+typedef struct s_ray
+{
+	t_vec	ray_dir;
+	t_vec	side_dis;
+	t_vec	delta_dis;
+}	t_ray;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
@@ -64,6 +77,7 @@ typedef struct s_game
 	int			ceiling;
 	t_map		map;
 	t_player	player;
+	t_ray		ray;
 }	t_game;
 
 int	init_game(t_game *game, t_file *file);
