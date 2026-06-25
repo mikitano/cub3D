@@ -64,9 +64,11 @@ typedef struct s_map
 
 typedef struct s_ray
 {
-	t_vec	ray_dir;
+	t_vec	dir;
 	t_vec	side_dis;
 	t_vec	delta_dis;
+	t_ivec	map;
+	t_ivec	step;
 }	t_ray;
 
 typedef struct s_game
