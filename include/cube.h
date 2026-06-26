@@ -43,8 +43,8 @@ typedef struct s_vec
 
 typedef struct s_ivec
 {
-	double	x;
-	double	y;
+	int	x;
+	int	y;
 }	t_ivec;
 
 typedef struct s_player
