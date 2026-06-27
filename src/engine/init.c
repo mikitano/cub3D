@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 02:24:31 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/19 18:22:40 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:22:26 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static void set_player_dir(t_game *game)
+static void	set_player_dir(t_game *game)
 {
 	if (game->player.orientation == 'N')
 	{
@@ -54,11 +54,10 @@ int	init_game(t_game *game, t_file *file)
 
 	/* colocar as texturas no/so/we/ea depois 
 		tbm falta o char player_view*/
-
 	return (0);
 }
 
-int init_win(t_game *game)
+int	init_win(t_game *game)
 {
 	game->mlx = mlx_init(W_WIDTH, W_HEIGHT, "cub3D", false);
 	if (!game->mlx)

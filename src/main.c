@@ -12,7 +12,7 @@
 
 #include "cube.h"
 
-void	draw_square(t_game *game,int x, int y, uint32_t color)
+void	draw_square(t_game *game, int x, int y, uint32_t color)
 {
 	int	x2;
 	int	y2;
@@ -36,6 +36,7 @@ void	draw_player(t_game *game)
 {
 	draw_square(game, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE, 0x00B6D0E2);
 }
+
 /*função teste. DELETAR depois, não usa no cub3d*/
 void	draw_player_dir(t_game *game)
 {
@@ -57,6 +58,7 @@ void	draw_player_dir(t_game *game)
 		i++;
 	}
 }
+
 /* ATENÇÃO: função teste. DELETAR depois, não usa no cub3d*/
 void	draw_player_plane(t_game *game)
 {
@@ -83,7 +85,7 @@ void	draw_player_plane(t_game *game)
 
 void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
 {
-	int col;
+	int	col;
 	int	lin;
 	int	x2;
 	int	y2;
@@ -129,7 +131,7 @@ void	clear_image(mlx_image_t *img)
 
 void	game_loop(void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = (t_game *)param;
 
@@ -164,8 +166,8 @@ int	main(int argc, char **argv)
 		clean_all(&parser);
 		return (1);
 	}
-	printf("Player x: %f", game.player.pos.x);
-	printf("Player y: %f", game.player.pos.y);
+	// printf("Player x: %f", game.player.pos.x);
+	// printf("Player y: %f", game.player.pos.y);
 	draw_map(&game, 0, 0, TILE_SIZE, 0xFFFFFFFF);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);

@@ -17,7 +17,7 @@
 // 111111
 
 #ifndef CUBE_H
-#define CUBE_H
+# define CUBE_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -69,7 +69,7 @@ typedef struct s_ray
 	t_vec	delta_dis;
 	t_ivec	map;
 	t_ivec	step;
-	int		side;
+	int		hit_side;
 }	t_ray;
 
 typedef struct s_game
@@ -83,11 +83,11 @@ typedef struct s_game
 	t_ray		ray;
 }	t_game;
 
-int	init_game(t_game *game, t_file *file);
-int init_win(t_game *game);
+int		init_game(t_game *game, t_file *file);
+int		init_win(t_game *game);
 
-void key_move(t_game *game);
+void	key_move(t_game *game);
 
-void handle_rotate(t_game *game);
+void	handle_rotate(t_game *game);
 
 #endif

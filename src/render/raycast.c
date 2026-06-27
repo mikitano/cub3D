@@ -6,19 +6,19 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 02:27:47 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/27 15:29:39 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/27 17:02:40 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static void calc_side_dis(t_game *game)
+static void	calc_side_dis(t_game *game)
 {
 	if (game->ray.dir.x < 0)
 	{
 		game->ray.step.x = -1;
-		game->ray.side_dis.x =
-			(game->player.pos.x - game->ray.map.x) * game->ray.delta_dis.x;
+		game->ray.side_dis.x = (game->player.pos.x
+				- game->ray.map.x) * game->ray.delta_dis.x;
 	}
 	else
 	{
@@ -29,8 +29,8 @@ static void calc_side_dis(t_game *game)
 	if (game->ray.dir.y < 0)
 	{
 		game->ray.step.y = -1;
-		game->ray.side_dis.y =
-			(game->player.pos.y - game->ray.map.y) * game->ray.delta_dis.y;
+		game->ray.side_dis.y = (game->player.pos.y
+				- game->ray.map.y) * game->ray.delta_dis.y;
 	}
 	else
 	{
@@ -40,7 +40,7 @@ static void calc_side_dis(t_game *game)
 	}
 }
 
-static void setup_ray(t_game *game, int col)
+static void	setup_ray(t_game *game, int col)
 {
 	double	camera_x;
 
@@ -50,13 +50,13 @@ static void setup_ray(t_game *game, int col)
 	game->ray.map.x = (int)game->player.pos.x;
 	game->ray.map.y = (int)game->player.pos.y;
 	if (game->ray.dir.x == 0)
-    	game->ray.delta_dis.x = 1e30;
+		game->ray.delta_dis.x = 1e30;
 	else
-    	game->ray.delta_dis.x = fabs(1 / game->ray.dir.x);
+		game->ray.delta_dis.x = fabs(1 / game->ray.dir.x);
 	if (game->ray.dir.y == 0)
-    	game->ray.delta_dis.y = 1e30;
+		game->ray.delta_dis.y = 1e30;
 	else
-    	game->ray.delta_dis.y = fabs(1 / game->ray.dir.y);
+		game->ray.delta_dis.y = fabs(1 / game->ray.dir.y);
 	calc_side_dis(game);
 }
 
@@ -71,13 +71,13 @@ static void	perform_dda(t_game *game)
 		{
 			game->ray.side_dis.x += game->ray.delta_dis.x;
 			game->ray.map.x += game->ray.step.x;
-			game->ray.side = 0;
+			game->ray.hit_side = 0;
 		}
 		else
 		{
 			game->ray.side_dis.y += game->ray.delta_dis.y;
 			game->ray.map.y += game->ray.step.y;
-			game->ray.side = 1;
+			game->ray.hit_side = 1;
 		}
 		if (game->map.grid[(game->ray.map.y)][(game->ray.map.x)] == '1')
 			hit = true;
@@ -85,7 +85,7 @@ static void	perform_dda(t_game *game)
 	calc_perp_wal_dis(game);
 }
 
-void raycast(t_game *game)
+void	raycast(t_game *game)
 {
 	int	col;
 
@@ -93,6 +93,7 @@ void raycast(t_game *game)
 	while (++col < W_WIDTH)
 	{
 		setup_ray(game, col);
+		perform_dda(game);
 		/*add o resto das funções do loop p/ raycast*/
 	}
 }

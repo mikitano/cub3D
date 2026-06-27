@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 02:14:38 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/27 12:26:38 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:19:24 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ static void	move_up(t_player *player, t_map *map)
 static void	move_down(t_player *player, t_map *map)
 {
 	double	new_y;
+
 	new_y = player->pos.y + 0.1;
 	if ((int)new_y > W_HEIGHT)
-	return ;
+		return ;
 	if (map->grid[(int)new_y][(int)player->pos.x] != '1')
 		player->pos.y = new_y;
 }
+
 static void	move_left(t_player *player, t_map *map)
 {
 	double	new_x;
@@ -54,17 +56,14 @@ static void	move_right(t_player *player, t_map *map)
 		player->pos.x = new_x;
 }
 
-void key_move(t_game *game)
+void	key_move(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		move_up(&game->player, &game->map);
-
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_down(&game->player, &game->map);
-
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		move_left(&game->player, &game->map);
-
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_right(&game->player, &game->map);
 }

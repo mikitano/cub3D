@@ -6,13 +6,13 @@
 /*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:42:58 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/20 16:51:41 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/27 16:22:02 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-static void rotate_player(t_player *player, double speed)
+static void	rotate_player(t_player *player, double speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -22,11 +22,12 @@ static void rotate_player(t_player *player, double speed)
 	player->dir.x = player->dir.x * cos(speed) - player->dir.y * sin(speed);
 	player->dir.y = old_dir_x * sin(speed) + player->dir.y * cos(speed);
 	/*raycast*/
-	player->plane.x = player->plane.x * cos(speed) - player->plane.y * sin(speed);
+	player->plane.x = player->plane.x
+		* cos(speed) - player->plane.y * sin(speed);
 	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
 }
 
-void handle_rotate(t_game *game)
+void	handle_rotate(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		rotate_player(&game->player, -game->mlx->delta_time * 3.0);
