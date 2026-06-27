@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 02:27:47 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/26 19:29:42 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/27 15:29:39 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,31 @@ static void setup_ray(t_game *game, int col)
 	else
     	game->ray.delta_dis.y = fabs(1 / game->ray.dir.y);
 	calc_side_dis(game);
+}
+
+static void	perform_dda(t_game *game)
+{
+	bool	hit;
+
+	hit = false;
+	while (!hit)
+	{
+		if (game->ray.side_dis.x < game->ray.side_dis.y)
+		{
+			game->ray.side_dis.x += game->ray.delta_dis.x;
+			game->ray.map.x += game->ray.step.x;
+			game->ray.side = 0;
+		}
+		else
+		{
+			game->ray.side_dis.y += game->ray.delta_dis.y;
+			game->ray.map.y += game->ray.step.y;
+			game->ray.side = 1;
+		}
+		if (game->map.grid[(game->ray.map.y)][(game->ray.map.x)] == '1')
+			hit = true;
+	}
+	calc_perp_wal_dis(game);
 }
 
 void raycast(t_game *game)

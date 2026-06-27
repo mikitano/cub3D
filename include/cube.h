@@ -69,6 +69,7 @@ typedef struct s_ray
 	t_vec	delta_dis;
 	t_ivec	map;
 	t_ivec	step;
+	int		side;
 }	t_ray;
 
 typedef struct s_game
