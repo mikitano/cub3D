@@ -1,6 +1,0 @@
-obj/core/ft_strnstr.o: src/core/ft_strnstr.c include/libft.h \
- include/ft_printf.h include/linked_list.h include/libft.h
-include/libft.h:
-include/ft_printf.h:
-include/linked_list.h:
-include/libft.h:
