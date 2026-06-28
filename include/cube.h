@@ -69,7 +69,11 @@ typedef struct s_ray
 	t_vec	delta_dis;
 	t_ivec	map;
 	t_ivec	step;
-	int		hit_side;
+	int		side;
+	double	perp_dis;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 }	t_ray;
 
 typedef struct s_game
@@ -89,5 +93,10 @@ int		init_win(t_game *game);
 void	key_move(t_game *game);
 
 void	handle_rotate(t_game *game);
+
+void	setup_ray(t_game *game, int col);
+void	calc_perp_wall_dis(t_game *game);
+void	perform_dda(t_game *game);
+void	raycast(t_game *game);
 
 #endif

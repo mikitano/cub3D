@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/28 21:48:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/28 22:11:13 by mkitano          ###   ########.fr       */
+/*   Created: 2026/06/28 21:49:25 by mkitano           #+#    #+#             */
+/*   Updated: 2026/06/28 22:10:01 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	raycast(t_game *game)
+void cal_wall(t_game *game)
 {
-	int	col;
-
-	col = -1;
-	while (++col < W_WIDTH)
-	{
-		setup_ray(game, col);
-		perform_dda(game);
-		calc_perp_wall_dis(game);
-		/*add funções render*/
-	}
+	game->ray.line_height = ((int)game->mlx->height / game->ray.perp_dis);
+	game->ray.draw_start = game->mlx->height / 2 - game->ray.line_height / 2;
+	if (game->ray.draw_start < 0)
+		game->ray.draw_start = 0;
+	game->ray.draw_end = game->mlx->height / 2 + game->ray.line_height / 2;
+	if (game->ray.draw_end >= game->mlx->height)
+		game->ray.draw_end = game->mlx->height - 1;
 }

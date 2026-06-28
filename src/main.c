@@ -139,8 +139,8 @@ void	game_loop(void *param)
 	handle_rotate(game);
 	clear_image(game->img);
 	draw_map(game, 0, 0, 16, 0xFFFFFFFF);
-	printf("dir_x=%f dir_y=%f\n",game->player.dir.x,
-	game->player.dir.y); //APENAS para teste
+	raycast(game); /*vamos ver se compila*/
+	// printf("dir_x=%f dir_y=%f\n",game->player.dir.x, game->player.dir.y); //APENAS para teste
 }
 
 int	main(int argc, char **argv)

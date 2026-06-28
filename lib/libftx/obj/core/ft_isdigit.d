@@ -1,0 +1,6 @@
+obj/core/ft_isdigit.o: src/core/ft_isdigit.c include/libft.h \
+ include/ft_printf.h include/linked_list.h include/libft.h
+include/libft.h:
+include/ft_printf.h:
+include/linked_list.h:
+include/libft.h:

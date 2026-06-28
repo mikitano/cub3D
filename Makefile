@@ -28,6 +28,7 @@ MLX_BUILD =		$(MLX_DIR)/build/
 PARSER_DIR =	./parser/
 ENGINE_DIR =	./engine/
 INPUTS_DIR =	./inputs/
+RENDER_DIR =	./render/
 
 PARSE_FILES =	clean_free.c \
 				parser_map.c \
@@ -44,10 +45,14 @@ ENGINE_FILES =	init.c \
 INPUTS_FILES =	player_move.c \
 				rotate.c \
 
+RENDER_FILES =	cal_raycast.c \
+				raycast.c\
+
 SRC_FILES = main.c \
 			$(addprefix $(PARSER_DIR), $(PARSE_FILES)) \
 			$(addprefix $(ENGINE_DIR), $(ENGINE_FILES)) \
 			$(addprefix $(INPUTS_DIR), $(INPUTS_FILES)) \
+			$(addprefix $(RENDER_DIR), $(RENDER_FILES)) \
 
 FILES_O = $(SRC_FILES:.c=.o)
 
