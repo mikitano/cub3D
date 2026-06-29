@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:49:25 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/29 02:46:45 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/29 16:03:15 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	render_bg(t_game *game)
 	}
 }
 
-void cal_wall(t_game *game)
+static void	calc_wall(t_game *game)
 {
 	game->ray.line_height = ((int)game->mlx->height / game->ray.perp_dis);
 	game->ray.draw_start = game->mlx->height / 2 - game->ray.line_height / 2;
@@ -44,4 +44,17 @@ void cal_wall(t_game *game)
 	game->ray.draw_end = game->mlx->height / 2 + game->ray.line_height / 2;
 	if (game->ray.draw_end >= game->mlx->height)
 		game->ray.draw_end = game->mlx->height - 1;
+}
+
+void	render_col(t_game *game, int col)
+{
+	int	y;
+
+	calc_wall(game);
+	y = game->ray.draw_start;
+	while (y <= game->ray.draw_end)
+	{
+		mlx_put_pixel(game->img, col, y, 0xFFFFFFFF);
+		y++;
+	}
 }

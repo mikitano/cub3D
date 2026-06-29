@@ -1,6 +1,0 @@
-obj/core/ft_isalpha.o: src/core/ft_isalpha.c include/libft.h \
- include/ft_printf.h include/linked_list.h include/libft.h
-include/libft.h:
-include/ft_printf.h:
-include/linked_list.h:
-include/libft.h:

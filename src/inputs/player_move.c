@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 02:14:38 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/27 16:19:24 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/29 16:06:34 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	move_right(t_player *player, t_map *map)
 	if (map->grid[(int)player->pos.y][(int)new_x] != '1')
 		player->pos.x = new_x;
 }
-
+/*ajustar a movimentação de acordo com a rotação*/
 void	key_move(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
