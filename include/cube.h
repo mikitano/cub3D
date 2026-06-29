@@ -80,8 +80,8 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
-	int			floor;
-	int			ceiling;
+	uint32_t	floor;
+	uint32_t	ceiling;
 	t_map		map;
 	t_player	player;
 	t_ray		ray;
@@ -97,6 +97,9 @@ void	handle_rotate(t_game *game);
 void	setup_ray(t_game *game, int col);
 void	calc_perp_wall_dis(t_game *game);
 void	perform_dda(t_game *game);
+
+void	render_bg(t_game *game);
+
 void	raycast(t_game *game);
 
 #endif

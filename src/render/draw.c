@@ -6,11 +6,34 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:49:25 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/28 22:10:01 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/29 02:46:45 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void	render_bg(t_game *game)
+{
+	uint32_t	x;
+	uint32_t	y;
+
+	x = 0;
+	while (x < W_WIDTH)
+	{
+		y = 0;
+		while ((int)y < (W_HEIGHT / 2))
+		{
+			mlx_put_pixel(game->img, x, y, game->ceiling);
+			y++;
+		}
+		while (y < W_HEIGHT)
+		{
+			mlx_put_pixel(game->img, x, y, game->floor);
+			y++;
+		}
+		x++;
+	}
+}
 
 void cal_wall(t_game *game)
 {

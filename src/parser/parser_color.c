@@ -80,7 +80,7 @@ static int	check_free_split(char **splited, t_parser *parser, int *color)
 	r = ft_atoi(splited[0]);
 	g = ft_atoi(splited[1]);
 	b = ft_atoi(splited[2]);
-	trgb = r << 16 | g << 8 | b;
+	trgb = r << 24 | g << 16 | b << 8 | 0xFF;
 	*color = trgb;
 	free_split(splited);
 	return (1);

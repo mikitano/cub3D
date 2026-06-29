@@ -3,8 +3,8 @@ SO 					./texture/dummy_SO.png
 WE 			./texture/dummy_WE.png         
 EA 	./texture/dummy_EA.png
                                                          
-F 220,3,0
-C 250,30,0
+F 61, 35, 20
+C 135, 206, 235
 
 1111111111111111111111111111111
 1111111111111111111111111111111
