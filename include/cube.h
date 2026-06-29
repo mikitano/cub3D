@@ -53,6 +53,8 @@ typedef struct s_player
 	t_vec	dir;
 	t_vec	plane;
 	char	orientation;
+	double	mov_speed;
+	double	rot_speed;
 }	t_player;
 
 typedef struct s_map
