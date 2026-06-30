@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 02:27:47 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/28 22:11:07 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/30 03:06:24 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,18 @@ void	perform_dda(t_game *game)
 void	calc_perp_wall_dis(t_game *game)
 {
 	if (game->ray.side == 0)
-		game->ray.perp_dis =
-			game->ray.side_dis.x - game->ray.delta_dis.x;
+	{
+		game->ray.perp_dis = game->ray.side_dis.x - game->ray.delta_dis.x;
+		game->ray.wall_x = game->player.pos.y
+			+ game->ray.perp_dis * game->ray.dir.y;
+	}
 	else
-		game->ray.perp_dis =
-			game->ray.side_dis.y - game->ray.delta_dis.y;
+	{
+		game->ray.perp_dis = game->ray.side_dis.y - game->ray.delta_dis.y;
+		game->ray.wall_x = game->player.pos.x
+			+ game->ray.perp_dis * game->ray.dir.x;
+	}
 	if (game->ray.perp_dis < 1e-6)
 		game->ray.perp_dis = 1e-6;
+	game->ray.wall_x -= floor(game->ray.wall_x);
 }

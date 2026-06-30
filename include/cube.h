@@ -73,9 +73,11 @@ typedef struct s_ray
 	t_ivec	step;
 	int		side;
 	double	perp_dis;
+	double	wall_x;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	int		offset_y;
 }	t_ray;
 
 typedef struct s_textures
