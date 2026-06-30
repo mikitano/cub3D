@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 02:24:31 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/27 16:22:26 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/06/30 00:28:03 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,23 @@ static void	set_player_dir(t_game *game)
 		game->player.dir.x = -1;
 		game->player.dir.y = 0;
 	}
-	/*plane é perpendicuar a dri, então sempre vai parecer um T*/
+	/*plane é perpendicuar a dir, então sempre vai parecer um T*/
 	game->player.plane.x = -game->player.dir.y * 0.66;
 	game->player.plane.y = game->player.dir.x * 0.66;
 }
 
-/*se der errado tem ver onde dar o free ainda, talvez na main(?)*/
+static int	init_textures(t_game *game, t_file *file)
+{
+	game->tex.no = mlx_load_png(file->texture->no);
+	game->tex.so = mlx_load_png(file->texture->so);
+	game->tex.we = mlx_load_png(file->texture->we);
+	game->tex.ea = mlx_load_png(file->texture->ea);
+	if (!game->tex.no || !game->tex.so || !game->tex.we
+		|| !game->tex.ea)
+		return (0);
+	return (1);
+}
+
 int	init_game(t_game *game, t_file *file)
 {
 	game->floor = file->color_floor;
@@ -51,9 +62,8 @@ int	init_game(t_game *game, t_file *file)
 	game->player.pos.y = file->player_row + 0.5;
 	game->player.orientation = file->player_view;
 	set_player_dir(game);
-
-	/* colocar as texturas no/so/we/ea depois 
-		tbm falta o char player_view*/
+	if(!init_textures(game, file))
+		return (1);
 	return (0);
 }
 
@@ -73,10 +83,3 @@ int	init_win(t_game *game)
 	}
 	return (0);
 }
-// int	init_hooks(t_game *game)
-// {
-// 	/*pensar na possibilidade de juntar esses, pra main não passar de 25 linhas*/
-// 	mlx_loop_hook(...);
-// 	mlx_key_hook(...);
-// 	mlx_cursor_hook(...);
-// }

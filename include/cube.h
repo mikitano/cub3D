@@ -78,10 +78,19 @@ typedef struct s_ray
 	int		draw_end;
 }	t_ray;
 
+typedef struct s_textures
+{
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+}	t_textures;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	t_textures	tex;
 	uint32_t	floor;
 	uint32_t	ceiling;
 	t_map		map;
