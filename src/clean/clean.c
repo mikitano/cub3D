@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 04:27:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 04:34:41 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 14:17:52 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,23 @@ void	close_game(t_game *game)
 
 void	clean_game(t_game *game, t_parser *parser)
 {
-	//TODO: add as funções que já temos da main para cá
-	mlx_delete_image(game->mlx, game->img);
-	mlx_terminate(game->mlx);
-	clean_all(&parser);
+	if (game->tex.no)
+		mlx_delete_texture(game->tex.no);
+	game->tex.no = NULL;
+	if (game->tex.so)
+		mlx_delete_texture(game->tex.so);
+	game->tex.so = NULL;
+	if (game->tex.we)
+		mlx_delete_texture(game->tex.we);
+	game->tex.we = NULL;
+	if (game->tex.ea)
+		mlx_delete_texture(game->tex.ea);
+	game->tex.ea = NULL;
+	if (game->img)
+		mlx_delete_image(game->mlx, game->img);
+	game->img = NULL;
+	if (game->mlx)
+		mlx_terminate(game->mlx);
+	game->mlx = NULL;
+	clean_all(parser);
 }

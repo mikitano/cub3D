@@ -6,11 +6,23 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/30 00:27:52 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/30 00:28:43 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 14:38:21 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+void	game_loop(void *param)
+{
+	t_game	*game;
+
+	game = (t_game *)param;
+
+	key_move(game);
+	handle_rotate(game);
+	//draw_map(game, 0, 0, 16, 0xFFFFFFFF);
+	raycast(game);
+}
 
 // void	start_game(t_game *game)
 // {

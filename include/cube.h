@@ -114,6 +114,9 @@ int		init_win(t_game *game);
 void	key_move(t_game *game);
 
 void	handle_rotate(t_game *game);
+void	mouse_rotate(t_game *game);
+
+void	game_loop(void *param);
 
 void	setup_ray(t_game *game, int col);
 void	calc_perp_wall_dis(t_game *game);
