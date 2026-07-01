@@ -35,6 +35,14 @@
 
 # define PLAYER_RADIUS 0.2
 
+typedef struct s_rgba
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+}	t_rgba;
+
 typedef struct s_vec
 {
 	double	x;
@@ -111,10 +119,12 @@ void	setup_ray(t_game *game, int col);
 void	calc_perp_wall_dis(t_game *game);
 void	perform_dda(t_game *game);
 
-void	render_bg(t_game *game);
-
 void	render_col(t_game *game, int col);
 
+uint32_t	convert_color(uint32_t color);
+uint32_t	apply_wall_shading(uint32_t color);
+
+void	render_bg(t_game *game);
 void	raycast(t_game *game);
 
 #endif
