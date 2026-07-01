@@ -79,12 +79,15 @@ int	main(int argc, char **argv)
 		clean_all(&parser);
 		return (1);
 	}
-	//--> Resto do progreama aqui !! <--
-	if(init_game(&game, &file) > 0 || init_win(&game)> 0)
+	ft_bzero(&game, sizeof(t_game));
+	if (init_game(&game, &file) > 0 || init_win(&game) > 0)
 	{
 		clean_game(&game, &parser);
 		return (1);
 	}
+	mlx_set_cursor_mode((&game)->mlx, MLX_MOUSE_NORMAL);
+	mlx_set_mouse_pos((&game)->mlx, (&game)->mlx->width >> 1,
+		(&game)->mlx->height >> 1);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	clean_game(&game, &parser);

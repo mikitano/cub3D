@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 15:42:58 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 14:14:22 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 18:29:07 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	rotate_player(t_player *player, double speed)
 	player->plane.y = old_plane_x * sin(speed) + player->plane.y * cos(speed);
 }
 
-/*not working well*/
+/*not working well???*/
 void	mouse_rotate(t_game *game)
 {
 	t_ivec			mouse;
@@ -42,7 +42,6 @@ void	mouse_rotate(t_game *game)
 		mlx_set_mouse_pos(game->mlx,
 			game->mlx->width >> 1, game->mlx->height >> 1);
 	}
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 }
 
 void	handle_rotate(t_game *game)
@@ -51,6 +50,12 @@ void	handle_rotate(t_game *game)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		rotate_player(&game->player, -game->player.rot_speed);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		rotate_player(&game->player,  game->player.rot_speed);
-	mouse_rotate(game);
+		rotate_player(&game->player, game->player.rot_speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_M))
+		game->mouse_disable = !game->mouse_disable;
+		game->mouse_disable = 1;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_N))
+		game->mouse_disable = 0;
+	if (!game->mouse_disable)
+		mouse_rotate(game);
 }

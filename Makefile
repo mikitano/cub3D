@@ -127,6 +127,7 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind -q --suppressions=mlx.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
-
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes \
+	--suppressions=mlx.supp -s ./$(NAME) ./maps/basic_map.cub
+	
 .PHONY: all clean fclean re val

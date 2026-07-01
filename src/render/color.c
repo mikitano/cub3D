@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 03:55:39 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 04:04:43 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 17:01:28 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ uint32_t	apply_wall_shading(uint32_t color)
 {
 	t_rgba	c;
 
-	c.r = (((color >> 24) & 0xFF) * 3) / 4;
-	c.g = (((color >> 16) & 0xFF) * 3) / 4;
-	c.b = (((color >> 8) & 0xFF) * 3) / 4;
+	c.r = (((color >> 24) & 0xFF) * 3) >> 2;
+	c.g = (((color >> 16) & 0xFF) * 3) >> 2;
+	c.b = (((color >> 8) & 0xFF) * 3) >> 2;
 	c.a = (color & 0xFF);
 	return ((c.r << 24)	| (c.g << 16) | (c.b << 8) | c.a);
 }

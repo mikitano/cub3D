@@ -106,31 +106,32 @@ typedef struct s_game
 	t_map		map;
 	t_player	player;
 	t_ray		ray;
+	int			mouse_disable;
 }	t_game;
 
-int		init_game(t_game *game, t_file *file);
-int		init_win(t_game *game);
+int			init_game(t_game *game, t_file *file);
+int			init_win(t_game *game);
 
-void	key_move(t_game *game);
+void		key_move(t_game *game);
 
-void	handle_rotate(t_game *game);
-void	mouse_rotate(t_game *game);
+void		handle_rotate(t_game *game);
+void		mouse_rotate(t_game *game);
 
-void	game_loop(void *param);
+void		game_loop(void *param);
 
-void	setup_ray(t_game *game, int col);
-void	calc_perp_wall_dis(t_game *game);
-void	perform_dda(t_game *game);
+void		setup_ray(t_game *game, int col);
+void		calc_perp_wall_dis(t_game *game);
+void		perform_dda(t_game *game);
 
-void	render_col(t_game *game, int col);
+void		render_col(t_game *game, int col);
 
 uint32_t	convert_color(uint32_t color);
 uint32_t	apply_wall_shading(uint32_t color);
 
-void	render_bg(t_game *game);
-void	raycast(t_game *game);
+void		render_bg(t_game *game);
+void		raycast(t_game *game);
 
-void	close_game(t_game *game); 
-void	clean_game(t_game *game, t_parser *parser);
+void		close_game(t_game *game);
+void		clean_game(t_game *game, t_parser *parser);
 
 #endif

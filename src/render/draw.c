@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:49:25 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 03:56:25 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 17:24:04 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	calc_wall(t_game *game)
 	if (game->ray.draw_end >= game->mlx->height)
 		game->ray.draw_end = game->mlx->height - 1;
 }
-static mlx_texture_t *get_wall_tex(t_game *game)
+
+static mlx_texture_t	*get_wall_tex(t_game *game)
 {
 	if (game->ray.side == 0)
 	{
@@ -39,7 +40,7 @@ static mlx_texture_t *get_wall_tex(t_game *game)
 	return (game->tex.no);
 }
 
-static int cal_tex_x(t_game *game, mlx_texture_t *tex)
+static int	cal_tex_x(t_game *game, mlx_texture_t *tex)
 {
 	int	tex_x;
 
@@ -53,7 +54,7 @@ static int cal_tex_x(t_game *game, mlx_texture_t *tex)
 	return (tex_x);
 }
 
-static void render_wall(t_game *game, mlx_texture_t *tex, int col, int y)
+static void	render_wall(t_game *game, mlx_texture_t *tex, int col, int y)
 {
 	double		tex_pos;
 	int			tex_x;
@@ -62,7 +63,7 @@ static void render_wall(t_game *game, mlx_texture_t *tex, int col, int y)
 
 	tex_x = cal_tex_x(game, tex);
 	tex_pos = (double)(y - game->ray.draw_start
-		+ game->ray.offset_y) / game->ray.line_height;
+			+ game->ray.offset_y) / game->ray.line_height;
 	if (tex_pos < 0)
 		tex_pos = 0;
 	if (tex_pos > 1)
@@ -71,7 +72,7 @@ static void render_wall(t_game *game, mlx_texture_t *tex, int col, int y)
 	if (tex_y >= (int)tex->height)
 		tex_y = tex->height - 1;
 	color = convert_color(((uint32_t *)tex->pixels)[tex_y * tex->width
-		+ tex_x]);
+			+ tex_x]);
 	if (game->ray.side == 1)
 		color = apply_wall_shading(color);
 	mlx_put_pixel(game->img, col, y, color);
@@ -85,7 +86,6 @@ void	render_col(t_game *game, int col)
 	y = game->ray.draw_start;
 	while (y <= game->ray.draw_end)
 	{
-		// mlx_put_pixel(game->img, col, y, 0xFFFFFFFF);
 		render_wall(game, get_wall_tex(game), col, y);
 		y++;
 	}

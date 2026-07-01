@@ -11,79 +11,88 @@
 # **************************************************************************** #
 
 {
-    ignore_libreadline_leaks
-    Memcheck:Leak
-    ...
-    obj:*/libreadline.so.*
+   loader_invalid_read
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   ...
+   fun:fillin_rpath.isra.0
+   fun:decompose_rpath
+   ...
 }
 
 {
-    igonere_binaries
-    Memcheck:Leak
-    ...
-    obj:/usr/bin/*
+   nvidia_driver
+   Memcheck:Addr8
+   ...
+   obj:*/libnvwgf2umx.so
 }
 {
-   <MLX_CODAM>
+   libLLVM_leak
    Memcheck:Leak
-   match-leak-kinds: reachable
+   match-leak-kinds: all
+   ...
+   obj:*/libLLVM*.so*
+}
+{
+   glfw_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libglfw.so*
+}
+{
+   libdxcore_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libdxcore.so*
+}
+{
+   libstdcxx_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libstdc++.so*
+}
+{
+   libX11_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libX11.so*
+}
+{
+   nvidia_leak
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   obj:*/libnvwgf2umx.so
+}
+
+{
+   dlopen_leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:_dl_open
+   ...
+}
+
+{
+   dl_open_worker_leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:dl_open_worker
+   ...
+}
+
+{
+   dl_catch_exception_leaks
+   Memcheck:Leak
+   match-leak-kinds: all
    ...
    fun:_dl_catch_exception
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:mlx_init
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:XrmGetStringDatabase
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:_XrmInitParseInfo
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:__tls_get_addr
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:__pthread_once_slow
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:glfwInit
-   ...
-}
-{
- <MLX_CODAM>
-   Memcheck:Leak
-   match-leak-kinds: reachable
-   ...
-   fun:_dl_init
    ...
 }

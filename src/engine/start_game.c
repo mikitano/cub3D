@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/30 00:27:52 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 14:38:21 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 18:18:46 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,3 @@ void	game_loop(void *param)
 	//draw_map(game, 0, 0, 16, 0xFFFFFFFF);
 	raycast(game);
 }
-
-// void	start_game(t_game *game)
-// {
-// 	/*pensar na possibilidade de juntar esses, pra main não passar de 25 linhas*/
-// 	mlx_loop_hook(...);
-// 	mlx_key_hook(...);
-// 	mlx_cursor_hook(...);
-// }
