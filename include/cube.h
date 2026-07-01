@@ -112,6 +112,7 @@ void	calc_perp_wall_dis(t_game *game);
 void	perform_dda(t_game *game);
 
 void	render_bg(t_game *game);
+
 void	render_col(t_game *game, int col);
 
 void	raycast(t_game *game);

@@ -6,34 +6,11 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 21:49:25 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/30 02:04:27 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/01 03:43:42 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-void	render_bg(t_game *game)
-{
-	uint32_t	x;
-	uint32_t	y;
-
-	x = 0;
-	while (x < W_WIDTH)
-	{
-		y = 0;
-		while ((int)y < (W_HEIGHT / 2))
-		{
-			mlx_put_pixel(game->img, x, y, game->ceiling);
-			y++;
-		}
-		while (y < W_HEIGHT)
-		{
-			mlx_put_pixel(game->img, x, y, game->floor);
-			y++;
-		}
-		x++;
-	}
-}
 
 static void	calc_wall(t_game *game)
 {
@@ -61,10 +38,40 @@ static mlx_texture_t *get_wall_tex(t_game *game)
 		return (game->tex.so);
 	return (game->tex.no);
 }
+static uint32_t	convert_color(uint32_t color)
+{
+	return (((color & 0x000000FF) << 24)
+		| ((color & 0x0000FF00) << 8)
+		| ((color & 0x00FF0000) >> 8)
+		| ((color & 0xFF000000) >> 24));
+}
 
 static void render_wall(t_game *game, mlx_texture_t *tex, int col, int y)
 {
-	
+	double		tex_pos;
+	int			tex_x;
+	int			tex_y;
+	uint32_t	color;
+
+	tex_x = (int)(game->ray.wall_x * tex->width);
+	if (tex_x >= (int)tex->width)
+		tex_x = tex->width - 1;
+	if (game->ray.side == 0 && game->ray.dir.x > 0)
+		tex_x = tex->width - tex_x - 1;
+	if (game->ray.side == 1 && game->ray.dir.y < 0)
+		tex_x = tex->width - tex_x - 1;
+	tex_pos = (double)(y - game->ray.draw_start
+		+ game->ray.offset_y) / game->ray.line_height;
+	if (tex_pos < 0)
+		tex_pos = 0;
+	if (tex_pos > 1)
+		tex_pos = 1;
+	tex_y = (int)(tex_pos * tex->height);
+	if (tex_y >= (int)tex->height)
+		tex_y = tex->height - 1;
+	color = convert_color(((uint32_t *)tex->pixels)[tex_y * tex->width
+		+ tex_x]);
+	mlx_put_pixel(game->img, col, y, color);
 }
 
 void	render_col(t_game *game, int col)

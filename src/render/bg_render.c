@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.c                                          :+:      :+:    :+:   */
+/*   bg_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/28 21:48:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 03:40:24 by mkitano          ###   ########.fr       */
+/*   Created: 2026/07/01 03:30:35 by mkitano           #+#    #+#             */
+/*   Updated: 2026/07/01 03:31:13 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	raycast(t_game *game)
+void	render_bg(t_game *game)
 {
-	int	col;
+	uint32_t	x;
+	uint32_t	y;
 
-	render_bg(game);
-	col = -1;
-	while (++col < W_WIDTH)
+	x = 0;
+	while (x < W_WIDTH)
 	{
-		setup_ray(game, col);
-		perform_dda(game);
-		calc_perp_wall_dis(game);
-		render_col(game, col);
+		y = 0;
+		while ((int)y < (W_HEIGHT / 2))
+		{
+			mlx_put_pixel(game->img, x, y, game->ceiling);
+			y++;
+		}
+		while (y < W_HEIGHT)
+		{
+			mlx_put_pixel(game->img, x, y, game->floor);
+			y++;
+		}
+		x++;
 	}
 }

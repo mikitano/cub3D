@@ -46,6 +46,7 @@ INPUTS_FILES =	player_move.c \
 				rotate.c \
 
 RENDER_FILES =	cal_raycast.c \
+				bg_render.c \
 				draw.c \
 				raycast.c\
 
