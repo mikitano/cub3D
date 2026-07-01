@@ -29,6 +29,7 @@ PARSER_DIR =	./parser/
 ENGINE_DIR =	./engine/
 INPUTS_DIR =	./inputs/
 RENDER_DIR =	./render/
+CLEAN_DIR =		./clean/
 
 PARSE_FILES =	clean_free.c \
 				parser_map.c \
@@ -51,11 +52,14 @@ RENDER_FILES =	cal_raycast.c \
 				draw.c \
 				raycast.c\
 
+CLEAN_FILES =	clean.c
+
 SRC_FILES = main.c \
 			$(addprefix $(PARSER_DIR), $(PARSE_FILES)) \
 			$(addprefix $(ENGINE_DIR), $(ENGINE_FILES)) \
 			$(addprefix $(INPUTS_DIR), $(INPUTS_FILES)) \
 			$(addprefix $(RENDER_DIR), $(RENDER_FILES)) \
+			$(addprefix $(CLEAN_DIR), $(CLEAN_FILES)) \
 
 FILES_O = $(SRC_FILES:.c=.o)
 

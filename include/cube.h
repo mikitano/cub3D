@@ -127,4 +127,7 @@ uint32_t	apply_wall_shading(uint32_t color);
 void	render_bg(t_game *game);
 void	raycast(t_game *game);
 
+void	close_game(t_game *game); 
+void	clean_game(t_game *game, t_parser *parser);
+
 #endif
