@@ -26,12 +26,10 @@
 # define W_WIDTH 1200
 # define W_HEIGHT 800
 
-# define MINI_TILE_SIZE 8
+# define MINI_TILE_SIZE 12
 # define MINI_RAD 5
 # define MINI_DIAM (MINI_RAD * 2 + 1)
-# define MINI_MARGIN 10
-
-# define PLAYER_RADIUS 0.2
+# define PLAYER_SIZE 12
 
 typedef struct s_rgba
 {
@@ -58,6 +56,7 @@ typedef struct s_minimap
 	t_ivec		player;
 	t_ivec		start;
 	t_ivec		center;
+	int			map_on;
 }	t_minimap;
 
 typedef struct s_player
