@@ -26,7 +26,8 @@
 				"dokca.42-ft-count-line",
 				"naumovs.color-highlight",
 				"evilcat.norminette-42",
-				"ms-vscode.makefile-tools"
+				"ms-vscode.makefile-tools",
+				"mariusvanwijk-joppekoers.codam-norminette-3"
 			],
 			"settings": {
 				"chat.disableAIFeatures": true,

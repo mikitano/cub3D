@@ -51,6 +51,7 @@ RENDER_FILES =	cal_raycast.c \
 				bg_render.c \
 				color.c \
 				draw.c \
+				minimap.c \
 				raycast.c\
 
 CLEAN_FILES =	clean.c

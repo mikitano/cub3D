@@ -6,16 +6,11 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 04:27:49 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/01 14:17:52 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/02 01:14:43 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-void	close_game(t_game *game)
-{
-	mlx_close_window(game->mlx);
-}
 
 void	clean_game(t_game *game, t_parser *parser)
 {

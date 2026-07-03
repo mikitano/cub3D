@@ -66,8 +66,6 @@ static void	move_right(t_player *player, t_map *map)
 
 void	key_move(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		close_game(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
 		game->player.mov_speed = game->mlx->delta_time * 4.6;
 	else

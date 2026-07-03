@@ -12,59 +12,6 @@
 
 #include "cube.h"
 
-void	draw_square(t_game *game, int x, int y, uint32_t color)
-{
-	int	x2;
-	int	y2;
-
-	x2 = x;
-	y2 = y;
-
-	while (y2 < y + TILE_SIZE)
-	{
-		while (x2 < x + 16)
-		{
-			mlx_put_pixel(game->img, x2, y2, color);
-			x2++;
-		}
-		x2 = x;
-		y2++;
-	}
-}
-
-void	draw_player(t_game *game)
-{
-	draw_square(game, game->player.pos.x * TILE_SIZE, game->player.pos.y * TILE_SIZE, 0x00B6D0E2);
-}
-
-// static void	draw_map(t_game *game, int x, int y, int size, uint32_t color)
-// {
-// 	int	col;
-// 	int	lin;
-// 	int	x2;
-// 	int	y2;
-
-// 	lin = 0;
-// 	while (game->map.grid[lin])
-// 	{
-// 		col = 0;
-// 		while (game->map.grid[lin][col])
-// 		{
-// 			x2 = x + (col * size);
-// 			y2 = y + (lin * size);
-// 			if(game->map.grid[lin][col] == '1')
-// 				draw_square(game, x2, y2, color);
-// 			else if (game->map.grid[lin][col] == '0' || game->map.grid[lin][col] == 'N')
-// 				draw_square(game, x2, y2, 0xFF000000);
-// 			col++;
-// 		}
-// 		lin++;
-// 	}
-// 	draw_player(game);
-// 	draw_player_dir(game); //DELETAR DEPOIS. APENAS TEST
-// 	draw_player_plane(game); //DELETAR DEPOIS. APENAS TEST
-// }
-
 int	main(int argc, char **argv)
 {
 	t_parser	parser;
@@ -85,49 +32,9 @@ int	main(int argc, char **argv)
 		clean_game(&game, &parser);
 		return (1);
 	}
-	mlx_set_cursor_mode((&game)->mlx, MLX_MOUSE_NORMAL);
-	mlx_set_mouse_pos((&game)->mlx, (&game)->mlx->width >> 1,
-		(&game)->mlx->height >> 1);
-	mlx_loop_hook(game.mlx, game_loop, &game);
+	mlx_key_hook(game.mlx, &key_hook, &game);
+	mlx_loop_hook(game.mlx, &game_loop, &game);
 	mlx_loop(game.mlx);
 	clean_game(&game, &parser);
 	return (0);
 }
-
-// int	main(void)
-// {
-// 	t_game	game;
-
-// 	if (init_game)
-// 	mlx = mlx_init(800, 600, "Aprendendo mlx", false);
-// 	if (!mlx)
-// 	{
-// 		printf("ERROR: mlx\n");
-// 		return (1);
-// 	}
-// 	img = mlx_new_image(mlx, 800, 600);
-// 	if (!img)
-// 	{
-// 		printf("ERROR: img\n");
-// 		mlx_terminate(mlx);
-// 		return (1);
-// 	}
-// 	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
-// 	{
-// 		printf("ERROR: image to windown\n");
-// 		mlx_delete_image(mlx, img);
-// 		mlx_terminate(mlx);
-// 		return (1);
-// 	}
-
-// 	//desenha quadrado
-// 	// draw_square(game.img, game.x, game.y, 100, 0xFFFFFFFF);
-
-// 	//desenha baseado no mapa
-// 	draw_map(game, 0, 0, 16, 0xFFFFFFFF);
-
-// 	mlx_loop_hook(game.mlx, game_loop, &game);
-// 	mlx_loop(game.mlx);
-// 	mlx_delete_image(mlx, img);
-// 	mlx_terminate(mlx);
-// }

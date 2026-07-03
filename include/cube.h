@@ -10,12 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// 111111
-// 100101
-// 101001
-// 1100N1
-// 111111
-
 #ifndef CUBE_H
 # define CUBE_H
 
@@ -31,7 +25,11 @@
 
 # define W_WIDTH 1200
 # define W_HEIGHT 800
-# define TILE_SIZE 16
+
+# define MINI_TILE_SIZE 8
+# define MINI_RAD 5
+# define MINI_DIAM (MINI_RAD * 2 + 1)
+# define MINI_MARGIN 10
 
 # define PLAYER_RADIUS 0.2
 
@@ -54,6 +52,13 @@ typedef struct s_ivec
 	int	x;
 	int	y;
 }	t_ivec;
+
+typedef struct s_minimap
+{
+	t_ivec		player;
+	t_ivec		start;
+	t_ivec		center;
+}	t_minimap;
 
 typedef struct s_player
 {
@@ -106,7 +111,8 @@ typedef struct s_game
 	t_map		map;
 	t_player	player;
 	t_ray		ray;
-	int			mouse_disable;
+	int			mouse_enable;
+	t_minimap	mini;
 }	t_game;
 
 int			init_game(t_game *game, t_file *file);
@@ -116,6 +122,7 @@ void		key_move(t_game *game);
 
 void		handle_rotate(t_game *game);
 void		mouse_rotate(t_game *game);
+void 		key_hook(mlx_key_data_t key, void *param);
 
 void		game_loop(void *param);
 
@@ -128,10 +135,12 @@ void		render_col(t_game *game, int col);
 uint32_t	convert_color(uint32_t color);
 uint32_t	apply_wall_shading(uint32_t color);
 
+uint32_t	reverse_bytes(uint32_t c);
 void		render_bg(t_game *game);
 void		raycast(t_game *game);
 
-void		close_game(t_game *game);
+void	minimap(t_game *game);
+
 void		clean_game(t_game *game, t_parser *parser);
 
 #endif

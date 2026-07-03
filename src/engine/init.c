@@ -6,7 +6,7 @@
 /*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 02:24:31 by mkitano           #+#    #+#             */
-/*   Updated: 2026/06/30 00:28:03 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/02 01:40:10 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	init_win(t_game *game)
 		return (1);
 	}
 	game->img = mlx_new_image(game->mlx, W_WIDTH, W_HEIGHT);
-	if (!game->mlx || mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
+	if (!game->img || mlx_image_to_window(game->mlx, game->img, 0, 0) == -1)
 	{
 		ft_putendl_fd((char *)mlx_strerror(mlx_errno), 2);
 		return (1);
