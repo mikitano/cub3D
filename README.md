@@ -59,7 +59,7 @@ The engine parses a configuration file (`.cub`) describing the map, wall texture
 | SHIFT | Run |
 | N | Show minimap |
 | ← / → | Rotate camera |
-| M | Active mouse |
+| M | Active mouse rotate |
 | Mouse | Rotate camera (bonus) |
 | ESC | Exit game |
 
