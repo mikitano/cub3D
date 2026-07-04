@@ -1,8 +1,8 @@
 NO ./texture/bricks_128x128.png
-SO 					./texture/bricks_128x128.png
-WE 			./texture/bricks_128x128.png         
-EA 	./texture/bricks_128x128.png
-                                                         
+SO ./texture/bricks_128x128.png
+WE ./texture/bricks_128x128.png
+EA ./texture/bricks_128x128.png
+
 F 166, 137, 115
 C 135, 206, 235
 
