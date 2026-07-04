@@ -185,8 +185,8 @@ Several optimizations were implemented during development, including:
 ### Raycasting
 
 - https://lodev.org/cgtutor/raycasting.html
-- https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/
-- https://www.youtube.com/watch?v=gYRrGTC7GtA
+- https://youtu.be/29LJ2TPIRYU?si=w6GUTIgShW7rQKm7
+- https://youtu.be/J5K8qMCB-7o?si=R8GUs5SDMmnUOg5J
 
 ### Graphics
 
