@@ -1,9 +1,9 @@
-NO ./texture/stone02_32x32.png
-SO 					./texture/stone02_32x32.png
-WE 			./texture/stone02_32x32.png         
-EA 	./texture/stone02_32x32.png
-                                                         
-F 79, 75, 79
+NO ./texture/wood04_32x32.png
+SO 					./texture/wood04_32x32.png
+WE 			./texture/wood04_32x32.png
+EA 	./texture/wood04_32x32.png
+
+F 105, 73, 52
 C 135, 206, 235
 
 111111

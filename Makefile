@@ -44,7 +44,8 @@ PARSE_FILES =	clean_free.c \
 ENGINE_FILES =	init.c \
 				start_game.c \
 
-INPUTS_FILES =	player_move.c \
+INPUTS_FILES =	key_hook.c \
+				player_move.c \
 				rotate.c \
 
 RENDER_FILES =	cal_raycast.c \
