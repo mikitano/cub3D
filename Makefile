@@ -52,6 +52,7 @@ RENDER_FILES =	cal_raycast.c \
 				bg_render.c \
 				color.c \
 				draw.c \
+				cal_minimap.c \
 				minimap.c \
 				raycast.c\
 
@@ -129,7 +130,7 @@ fclean: clean
 re: fclean all
 
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes \
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes \
 	--suppressions=mlx.supp -s ./$(NAME) ./maps/basic_map.cub
 	
 .PHONY: all clean fclean re val

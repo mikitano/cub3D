@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 02:24:31 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/02 01:40:10 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/04 11:15:52 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	set_player_dir(t_game *game)
 		game->player.dir.x = -1;
 		game->player.dir.y = 0;
 	}
-	/*plane é perpendicuar a dir, então sempre vai parecer um T*/
 	game->player.plane.x = -game->player.dir.y * 0.66;
 	game->player.plane.y = game->player.dir.x * 0.66;
 }
@@ -62,7 +61,7 @@ int	init_game(t_game *game, t_file *file)
 	game->player.pos.y = file->player_row + 0.5;
 	game->player.orientation = file->player_view;
 	set_player_dir(game);
-	if(!init_textures(game, file))
+	if (!init_textures(game, file))
 		return (1);
 	return (0);
 }

@@ -28,7 +28,6 @@
 
 # define MINI_TILE_SIZE 12
 # define MINI_RAD 5
-# define MINI_DIAM (MINI_RAD * 2 + 1)
 # define PLAYER_SIZE 12
 
 typedef struct s_rgba
@@ -121,7 +120,7 @@ void		key_move(t_game *game);
 
 void		handle_rotate(t_game *game);
 void		mouse_rotate(t_game *game);
-void 		key_hook(mlx_key_data_t key, void *param);
+void		key_hook(mlx_key_data_t key, void *param);
 
 void		game_loop(void *param);
 
@@ -138,7 +137,10 @@ uint32_t	reverse_bytes(uint32_t c);
 void		render_bg(t_game *game);
 void		raycast(t_game *game);
 
-void	minimap(t_game *game);
+void		draw_minimap(t_game *game);
+void		draw_player(t_game *game);
+void		init_minimap(t_game *game);
+void		minimap(t_game *game);
 
 void		clean_game(t_game *game, t_parser *parser);
 

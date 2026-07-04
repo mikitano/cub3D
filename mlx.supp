@@ -96,3 +96,31 @@
    fun:_dl_catch_exception
    ...
 }
+
+{
+   dl_find_object_leaks
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:_dl_find_object_update
+   ...
+}
+
+{
+   glibc_dl_find_object_catch
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:_dl_find_object_update
+   fun:dl_open_worker_begin
+   ...
+}
+
+{
+   driver_intel_fd_leak
+   File:Chk
+   fun:open
+   ...
+   fun:getpwuid_r@@GLIBC*
+   obj:*/iris_dri.so
+}

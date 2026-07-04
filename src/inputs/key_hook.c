@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkitano <mkitano@student.42sp.org.br>      +#+  +:+       +#+        */
+/*   By: mkitano <mkitano@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 02:58:35 by mkitano           #+#    #+#             */
-/*   Updated: 2026/07/04 02:58:37 by mkitano          ###   ########.fr       */
+/*   Updated: 2026/07/04 11:16:23 by mkitano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void key_hook(mlx_key_data_t key, void *param)
+void	key_hook(mlx_key_data_t key, void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = (t_game *)param;
 	if (key.key == MLX_KEY_ESCAPE && key.action == MLX_PRESS)
@@ -30,6 +30,6 @@ void key_hook(mlx_key_data_t key, void *param)
 		else
 			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	}
-	 if (key.key == MLX_KEY_N && key.action == MLX_PRESS)
+	if (key.key == MLX_KEY_N && key.action == MLX_PRESS)
 		game->mini.map_on = !game->mini.map_on;
 }
