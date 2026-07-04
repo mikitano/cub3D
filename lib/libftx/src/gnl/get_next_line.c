@@ -12,8 +12,9 @@
 
 #include "libft.h"
 
-char	*read_line(int fd, char *buffer, char *remaining);
-char	*divide_line_and_save_rest(char *line);
+char		*read_line(int fd, char *buffer, char *remaining);
+char		*divide_line_and_save_rest(char *line);
+static char	*check_errors(int fd, char *buffer, char **remaining);
 
 char	*get_next_line(int fd)
 {
@@ -21,17 +22,9 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!check_errors(fd, buffer, &remaining))
 		return (NULL);
-	if ((fd < 0) || (BUFFER_SIZE <= 0))
-	{
-		free(buffer);
-		free(remaining);
-		remaining = NULL;
-		buffer = NULL;
-		return (NULL);
-	}
 	line = read_line(fd, buffer, remaining);
 	if (!line)
 	{
@@ -89,3 +82,18 @@ char	*divide_line_and_save_rest(char *line)
 	line[i] = '\0';
 	return (save_rest);
 }
+
+static char	*check_errors(int fd, char *buffer, char **remaining)
+{
+	if (!buffer)
+		return (NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		free(buffer);
+		free(*remaining);
+		*remaining = NULL;
+		return (NULL);
+	}
+	return (buffer);
+}
+
