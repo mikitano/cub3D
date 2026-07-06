@@ -14,7 +14,7 @@
 #                       FLAGS AND VARIABLES TO COMPILE                         #
 ################################################################################
 
-NAME = cub3d
+NAME = cub3D
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
